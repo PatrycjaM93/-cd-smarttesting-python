@@ -1,0 +1,2 @@
+class NumberOfHouseholdMembersValidationException(Exception):
+    pass
