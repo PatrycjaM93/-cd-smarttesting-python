@@ -1,0 +1,121 @@
+=  SmartTesting
+
+== Struktura folderów
+
+* Każda lekcja ma swoje podfoldery (e.g `01-introduction-to-testing`).
+* Każdy folder zawiera plik `README.adoc` z dodatkowym opisem dla każdej lekcji.
+* Moduł `00-app` zawiera aplikację symulującą kod biznesowy. Aplikacja będzie wykorzystana w pracy domowej.
+
+== Wymagania
+
+Żeby uruchomić projekt należy mieć zainstalowane:
+
+* Python 3.10
+* Poetry (https://python-poetry.org/docs/#installation)
+* Docker
+* Docker Compose
+
+== Jak zbudować projekt?
+
+Wystarczy uruchomić komendę w głównym katalogu:
+
+```
+poetry install
+```
+
+Poetry automatycznie utworzy nam virtualenv i zainstaluje zależności wymagane do wszystkich lekcji.
+
+Kod był rozwijany i testowany pod wersję Pythona 3.10. Zalecamy korzystanie z tej wersji. Gdyby nie został wybrany automatycznie, to uruchamiamy jeszcze przed wywołaniem `poetry install`:
+
+```
+poetry env use python3.10
+```
+
+Aby móc wywoływać polecenia, musimy przełączyć się na powstały virtualenv:
+```
+poetry shell
+```
+
+== Uwagi dla Pythonistów
+
+W części README w lekcjach znajdziecie dodatkowe wskazówki oznaczone emoji węża - 🐍.
+
+Są to albo dodatkowe treści i biblioteki wykorzystywane w naszym języku albo rady specjalnie dla Pythonistów.
+
+Dodatkowo, przy budowaniu kodu użyto najnowszych dostępnych w Pythonie technologii. Są to:
+
+- pytest
+- type annotations
+- dataclasses
+- poetry
+
+== Praca w konsoli
+
+Przełączamy się na virtualenv:
+
+```
+poetry shell
+```
+
+Testy można uruchomić z katalogu głównego, podając pełną ścieżkę do danej lekcji:
+
+```
+pytest 01-introduction-to-testing/01-01-unit-tests/
+```
+
+Można też uruchamiać polecenie z środka danego folderu:
+
+```
+cd 01-introduction-to-testing/01-01-unit-tests/
+pytest
+```
+
+Uruchamiamy zawsze kod jednej lekcji naraz.
+
+== Praca w PyCharm
+
+=== Interpreter projektu
+
+Zaczynamy od ustawienia interpretera projektu. Najpierw w konsoli sprawdzamy ścieżkę:
+
+```
+poetry shell
+which python
+```
+
+Następnie w konfiguracji (Project -> Python Interpreter) wskazujemy ścieżkę uzyskaną z polecenia `which python` po uprzednim `poetry shell`, na przykład:
+
+image::docs/images/venv_pycharm.png[]
+
+=== Ustawienie Sources root
+
+Aby móc przeszukiwać kod danej lekcji, musimy ustawić jej folder jako sources root, np:
+
+image::docs/images/sources_root.png[]
+
+Tylko w ten sposób będziemy mogli nawigować w kodzie i wspomagać się wyszukiwaniem.
+
+Większość tygodni będzie zawierać kilka lekcji - np. tydzień 3 ma m.in.:
+```
+03-integration-testing/
+├── 03-02-xxx
+├── 03-03-yyy
+└── 03-07-zzz
+```
+
+W takim przypadku musimy pracować tylko jedną lekcja naraz i w danej chwili mieć albo `03-integration-testing/03-02-xxx` albo `03-integration-testing/03-03-yyy` albo `03-integration-testing/03-02-zzz` ustawione jako Sources Root.
+
+Ustawienie kilku lekcji naraz jako Sources Root nie będzie dobrze działać. Po zakończeniu pracy z daną lekcją należy ją odznaczyć (Unmark as Sources Root w tym samym menu).
+
+== Inne
+
+Kod jest sformatowany blackiem na domyślnych ustawieniach - tj. maksymalna długość linii - 88 znaków.
+
+
+**DISCLAIMER**
+
+* Kod jest czysto demonstracyjny i nie stanowi wzorcowego kodu projektowego - zamiast na jak
+najlepiej napisanym kodzie produkcyjnym koncentrujemy się na przykładach, które pozwalają pokazać
+wiele sposobów pracy z testami; często celowo dodajemy "produkcyjny" kod, który nie jest poprawnie zaprojektowany po to, żeby pokazać jak sobie z nim radzić i mimo wszystko być w stanie go przetestować
+oraz przykłady złych testów, których radzimy unikać.
+* Nie polecamy pisania komentarzy po polsku w projektach - tutaj robimy to ponieważ jest to wyłącznie kod szkoleniowy.
