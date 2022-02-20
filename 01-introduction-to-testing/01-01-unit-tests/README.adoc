@@ -1,0 +1,27 @@
+= 01.01 Testy jednostkowe
+
+Tematy omawiane w tej części:
+
+* Czemu testy są niezbędne
+* Czemu testy są opłacalne
+* Jakie zasady powinny spełniać dobre testy
+* Jak unikać `false passes`:
+   - przykład - zestaw testów zawiera test na przypadek negatywny: `tests.verifier.customer.test_customer_verifier.TestCustomerVerifier.test_fails_simple_verification`, ale nie zawiera testów weryfikujących pozytywną weryfikację, przez co testy nie wychwytują, że kod produkcyjny zwraca domyślną wartość i brakuje implementacji logiki biznesowej
+   - przykład - test `tests.verifier.customer.test_simple_verification.TestSimpleVerification.test_passes_simple_verification_false_pass`. Test weryfikuje nie to co trzeba (jakieś pole na obiekcie, zamiast zwracanej wartości), przez co przechodzi, mimo że właściwa implementacja nie została dodana.
+* Rodzaje testów
+* Struktura testów
+  - zobacz np. `tests.verifier.customer.verification.test_identification_number.TestIdentificationNumberVerification`
+* Konwencje nazewnicze
+  - zobacz: `tests.verifier.customer.verification.test_identification_number.TestIdentificationNumberVerification`
+* Używanie `__init__` do przekazywania zależności zamiast bezpośredniego importowania obiektów
+  - pozwala to między innymi na używanie Test Doubles, zobacz: `tests.verifier.customer.test_customer_verifier.StubVerificationService`
+  - 🐍 w przeciwnym razie skazani bylibyśmy na monkey-patching (`unittest.mock.patch`)
+* Radzenie sobie z kodem, którego nie kontrolujemy:
+  - zobacz setup pól klasy testowej w `tests.verifier.customer.test_customer_verifier.TestCustomerVerifier` i `tests.verifier.customer.test_customer_verifier.TestBadServiceWrapper`
+  - 🐍 alternatywnie zawsze pozostaje monkey-patching - zobacz `tests.verifier.customer.test_customer_verifier.TestCustomerVerifier.test_verifies_person_with_monkey_patching`
+* Asercje i frameworki do asercji
+  - zobacz `tests.verifier.customer.verification.test_age.TestAgeVerificationPytest`
+  - zobacz `tests.verifier.customer.verification.test_age.TestAgeVerificationAssertPy`
+  - zobacz `tests.verifier.customer.verification.test_age.TestAgeVerificationExpects`
+* Wzorzec AssertObject
+ - zobacz `tests.order.test_loan_order_service.TestLoanOrderService`
