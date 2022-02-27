@@ -1,0 +1,20 @@
+= 02.01 Testy jednostkowe c.d.
+
+Tematy omawiane w tej części:
+
+* Struktura klasy testowej:
+  - setup i tear-down; zobacz: `02-01-unit-tests/tests/order/test_loan_order_service.py`
+  - zastosowanie builderów; zobacz: `tests.verifier.customer.factories.CustomerFactory` i `tests.verifier.customer.test_customer_verifier.TestCustomerVerifier`
+  - 🐍 buildery implementujemy w Pythonie używając biblioteki factory_boy
+* Co i kiedy testować
+  - testowanie wyniku operacji; zobacz: `tests.order.test_loan_order_service.TestLoanOrderService.test_creates_student_loan_order`
+  - testowanie stanu; zobacz: `tests.order.test_loan_order.TestLoanOrder.test_adds_manager_promo`
+  - testowanie interakcji; zobacz: `tests.verifier.customer.test_customer_verifier.TestCustomerVerifier.test_emits_verification_event`
+  - które metody testować
+* Mockowanie i stubowanie
+  - zobacz: `tests.order.test_loan_order_service.TestLoanOrderService`
+* Szkoły testów jednostkowych
+* Mocki i stuby - dobre praktyki
+* 🐍 Fikstury pytesta, używanie słowa kluczowego `yield` do rozdzielania kodu do wykoniania "przed" i "po"
+* Testy Data-Driven
+  - zobacz: `tests.verifier.customer.verification.test_identification_number.TestIdentificationNumberVerification`
