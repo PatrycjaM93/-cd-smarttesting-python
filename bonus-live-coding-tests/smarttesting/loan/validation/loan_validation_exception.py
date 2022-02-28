@@ -1,0 +1,2 @@
+class LoanValidationException(Exception):
+    pass

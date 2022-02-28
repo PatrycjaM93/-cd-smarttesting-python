@@ -1,0 +1,2 @@
+class CommissionValidationException(Exception):
+    pass
