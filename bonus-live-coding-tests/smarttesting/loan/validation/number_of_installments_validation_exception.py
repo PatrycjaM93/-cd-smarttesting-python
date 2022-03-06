@@ -1,0 +1,2 @@
+class NumberOfInstallmentsValidationException(Exception):
+    pass
