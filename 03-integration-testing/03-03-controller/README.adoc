@@ -1,0 +1,52 @@
+= Kontroler / HTTP
+
+== 🐍 Specyficzne dla Pythona 🐍
+
+W Pythonie najbliższy odpowiednik kontrolera to... widok. W innych ekosystemach za widoki można by uznać za to nasze templatki.
+
+Kiedy w materiałach napotkasz słowo "kontroler" chodzi o widok. To pojęcie jest używane we wszystkich popularnych frameworkach w Pythonie.
+
+== Kod
+
+`smarttesting/client/fraud_view.py`
+
+== Notatki
+
+Zanim napiszemy jakikolwiek test, powinniśmy sobie zadać pytanie, co dokładnie chcemy przetestować. Jaki jest cel naszego testu? W tym przypadku, mamy widok, czyli funkcję przyjmującą żądania HTTP i zwracający odpowiedź w tym protokole.
+
+Mamy kilka możliwości testowania widoku:
+ - testowanie widoku jako funkcji,
+ - testowanie widoku po warstwie HTTP z alokacją portu,
+ - testowanie widoku po warstwie HTTP bez alokacji portu
+
+Rozważmy teraz przypadki takich testów, jednak zobaczmy najpierw kod. Przykładem będzie kod napisany w Pythonie z użyciem FastAPI.
+
+=== Testowanie widoku jako obiektu [01]
+
+==== Klasy
+
+`Test01Controller` i `TestModule` z pliku `tests/client/_01_controller_tests.py`
+
+=== Testowanie widoku po warstwie HTTP z alokacją portu [02]
+
+==== Klasy
+
+`Test02FraudControllerWithPortBinding` i konieczna dla zrozumienia fikstura `tests.client.conftest.running_server`
+
+=== Zamockowanie serwisu [03]
+
+==== Klasy
+
+`Test03FraudControllerWithFakeAndPortBinding` i klasa `PortControllerWithFake` z tego samego pliku `tests/client/_03_fraud_controller_with_fake_and_port_binding_tests.py`
+
+=== Mockowanie warstwy sieciowej [04]
+
+==== Klasy
+
+`Test04TestClient`
+
+=== Biblioteka do testowania API - Tavern [05]
+
+==== Kod
+
+`_05_tavern_api_tests.tavern.yaml` - całkowicie deklaratywne podejście w YAML

@@ -1,0 +1,24 @@
+---
+test_name: Rejects loan application when person is too young
+
+marks:
+  - usefixtures:
+      - running_server
+      - root_address
+      - current_date_formatted
+
+stages:
+  - name: Requesting as too young Zbigniew
+    request:
+      url: "{root_address}fraudCheck"
+      method: POST
+      json:
+        uuid: "7b3e02b3-6b1a-4e75-bdad-cef5b279b074"
+        name: "Zbigniew"
+        surname: "Zamłodowski"
+        date_of_birth: "{current_date_formatted}"
+        gender: "MALE"
+        national_id_number: "18210116954"
+
+    response:
+      status_code: 401

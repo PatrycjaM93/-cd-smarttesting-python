@@ -1,0 +1,13 @@
+= Testowanie na środowisku deweloperskim
+
+== Kod
+
+Mamy dwa moduły
+
+* 03-07-01-in-mem
+* 03-07-02-runner
+
+Moduł `in-mem` posiada konfigurację aplikacji wraz z klasami,
+które pozwalają na uruchomienie wszystkich komponentów integracyjnych w pamięci. Moduł ten też buduje obraz dockerowy naszej aplikacji.
+
+Moduł `runner` posiada opcję uruchomienia naszej aplikacji wraz z brokerem i bazą danych w kontenerach. W ten sposób jesteśmy bliżej wersji produkcyjnej, natomiast nadal część komponentów będzie zaślepiona.

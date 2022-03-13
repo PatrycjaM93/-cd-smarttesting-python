@@ -1,0 +1,25 @@
+= Frameworki do Inversion of Control
+
+== W jaki sposób tworzysz obiekty? [01]
+
+=== Kod
+
+Tylko `_01_ioc_tests.py`
+
+== Co to jest Inversion of Control? [02,03]
+
+=== Kod
+
+Najpierw `_02_config.py`, później `_03_injector_ioc_tests.py`.
+
+== IOC / DI i testowanie [04,05]
+
+=== Kod
+
+Wpierw `_04_manual_injector_ioc_tests.py`, potem `_05_customer_verification_tests.py`
+
+== 🐍 Specyficzne dla Pythona 🐍
+
+W tym module po raz pierwszy zobaczysz plik `conftest.py`. Jest to miejsce na uwspólnienie fikstur używane przez pytesta. Podczas fazy _collection_ (tj. odkrywania i zbierania testów) pytest odnajduje też fikstury. Jeżeli masz testy rozrzucone w hierarchii katalogów, to w teście będą dostępne wszystkie fikstury z `conftest.py` po drodze.
+
+Przykładowo, bezpośrednio w katalogu `tests` mamy kolejny `conftest.py` z fiksturą `fixture_for_all`. Jej umiejscowienie powoduje, że wszystkie nasze testy mogą z niej korzystać. Za to gdybyśmy chcieli na przykład skorzystać z fikstury `tests.client.conftest.customer_verifier` wyżej (równo z pierwszym `conftest`) nie byłaby ona dostępna.

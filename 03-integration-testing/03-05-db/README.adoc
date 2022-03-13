@@ -1,0 +1,39 @@
+= Bazy danych
+
+== Kod
+
+Przede wszystkim `smarttesting.verifier.customer.customer_verifier.CustomerVerifier`, który jako serwis aplikacyjny wykorzystuje `VerificationRepository` do połączenia z bazą danych.
+
+W tym projekcie wykorzystujemy ORM (SQLAlchemy) i cienką warstwę abstrakcji w postaci _persistence-oriented repository_ nad sesją SQLAlchemy.
+
+Encją (modelem) zapisywaną w bazie danych będzie `smarttesting.verifier.customer.verified_person.VerifiedPerson`.
+
+Schemat bazy danych tworzony jest w testach z definicji modeli wykorzystując mechaniki wbudowane w SQLAlchemy.
+
+W produkcyjnym zastosowaniu wykorzystalibyśmy biblitekę alembic, która świetnie działa z SQLAlchemy.
+
+=== Zaślepka [01]
+
+==== Klasy
+
+`_01_customer_verifier_mocks_database_tests.Test01CustomerVerifierMocksDatabase`
+
+=== Bazy danych uruchamiane w pamięci [02]
+
+==== Klasy
+
+`_02_customer_verifier_in_memory_database_tests.Test02CustomerVerifierInMemoryDatabase` - wykorzystujemy `tests.smarttesting.verifier.customer._02_in_memory_verification_repository.InMemoryVerificationRepository`, będacym implementacją trzymającym dane w pamięci, a dokładniej w słowniku.
+
+=== Bazy danych embedded [03]
+
+==== Klasy
+
+`_03_customer_verifier_with_embedded_sqlite_tests.Test03CustomerVerifierWithEmbeddedSqlite`  - wykorzystujemy bazę danych sqlite działającą w pamięci. Dopóki nasze wykorzystanie ORMa ogranicza się do wspólnego podzbioru operacji możliwych na SQLite i naszej produkcyjnej bazie, to rozwiązanie działa.
+
+=== Bazy danych w kontenerze [04]
+
+==== Klasy / Fikstury
+
+`_04_customer_verifier_with_container_tests.Test04CustomerVerifierWithContainer` - klasa zawiera test który wykorzystuje cały podniesiony kontekst aplikacji. Ta ostatnia będzie korzystać z produkcyjnej bazy danych uruchomionej w kontenerze.
+
+Fikstura `postgresql` w tym samym pliku zawiera kod uruchamiający, a następnie kasujący bazę PostgreSQL działającą w kontenerze.
