@@ -1,0 +1,48 @@
+= Testowanie Klientów HTTP
+
+== Kod
+
+Przede wszystkim `smarttesting.client.bik_verification_service.BIKVerificationService`
+
+=== Złe defaulty [01]
+
+==== Klasy
+
+`tests.client.bik_verification_service_tests.TestBIKVerificationServiceDefault`
+
+=== Złe defaulty [02]
+
+==== Klasy
+
+`tests.client.bik_verification_service_default_tests.TestBIKVerificationServiceDefault`
+
+=== Bonus [03]
+
+Tego nie ma na slajdach i w ogóle o tym nie mówię w szkoleniu, ale jest w kodzie.
+
+==== Klasy
+
+`tests.client.bik_verification_service_no_exception_tests.TestBIKVerificationServiceDefault`
+
+== 🐍 Specyficzne dla Pythona 🐍
+Częśc testów wymaga działania w tle Wiremocka. Przykładowe polecenie: `docker run -it --rm -p 8080:8080 rodolpheche/wiremock:2.27.2`
+Znajdująca się w kodzie klasa bazowa `tests.client.wiremock_running_test.WiremockRunningTest` i umieszczona w niej fikstura upewnią się, że Wiremock jest uruchomiony i dostępny.
+
+== 🐍 Python Bonus 🐍
+Innym spotykanym podejście do testowania klas odpowiedzialnych za komunikację z zewnętrznymi API jest mockowanie odpowiedzi. Chociaż ta praktyka jest obarczona sporym ryzykiem (tj. możemy zamockować coś źle, nie wyłapiemy zmian w API itd.) jest często spotykana w Pythonie i może być wykorzystywana uzupełniająco do innych testów z tej lekcji.
+
+=== Mockowanie z responses [A]
+
+Zamiast ręcznie mockować bibliotekę do połączeń HTTP, możemy użyć dedykowanych narzędzi, na przykład responses stworzonej do mockowania requests.
+
+==== Klasy
+
+`tests.client.bik_verification_service_responses_tests.TestBIKVerificationServiceResponses`
+
+=== Wykorzystanie vcr.py do nagrywania żądań i odpowiedzi od zewnętrznych API [A]
+
+Biblioteka vcr.py będąca portem biblioteki VCR z Ruby zapewnia nam automatyczne mockowanie. Upraszczając, testy za pierwszym razem komunikują się z zewnętrznym API a wszystkie interakcje zostają zapisane w tak zwanej kasecie - pliku .yaml, z którego informacje są używane przy kolejnych uruchomieniach testów.
+
+==== Klasy
+
+`tests.client.bik_verification_service_vcrpy_tests.TestBIKVerificationServiceVcrPy`

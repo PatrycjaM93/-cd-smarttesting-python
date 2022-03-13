@@ -1,0 +1,6 @@
+= Testowanie na środowisku deweloperskim - uruchamianie z dockerami
+
+== Kod
+
+Tylko `test_with_docker_compose.py`, które uruchamia za pomocą Docker Compose (i wtyczki pytest-docker-compose) kontenery z infrastrukturą i naszą aplikacją.
+Wykorzystuje obraz zbudownay w poprzedniej lekcji (zobacz README w 03-07-01-in-mem).

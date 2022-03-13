@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:12
+    environment:
+      POSTGRES_DB: smarttesting
+      POSTGRES_USER: smarttesting
+      POSTGRES_PASSWORD: smarttesting
+    ports:
+    - 5432:5432
+  rabbitmq:
+    image: rabbitmq:3.7-management
+    environment:
+      RABBITMQ_DEFAULT_USER: smarttesting
+      RABBITMQ_DEFAULT_PASS: smarttesting
+    ports:
+    - 5672:5672
+    - 15672:15672
+  app:
+    image: smarttesting/integration-testing-app:latest
+    ports:
+      - 5000:5000
+    environment:
+      APP_ENV: "DEV"
+      DB_URL: "postgresql://smarttesting:smarttesting@postgres:5432/smarttesting"
+      BROKER_URL: "amqp://smarttesting:smarttesting@rabbitmq:5672/"
+    depends_on:
+      - postgres
+      - rabbitmq

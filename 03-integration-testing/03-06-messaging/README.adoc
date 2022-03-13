@@ -1,0 +1,32 @@
+= Testowanie brokerów wiadomości
+
+== Kod
+
+Przede wszystkim `smarttesting.verifier.customer.customer_verifier.CustomerVerifier`, który jako serwis aplikacyjny wykorzystuje `smarttesting.verifier.customer.customer_verifier.FraudAlertTask` do wysłania wiadomości do brokera (i jego implementacja - `smarttesting.verifier.customer.fraud_alert_task.fraud_detected_handler` skonfigurowana w `smarttesting.verifier.customer.module.CustomerModule.fraud_alert_task`).
+
+W tym projekcie wykorzystujemy Celery jako bibliotekę do obsługi zadań i cienką warstwę abstrakcji nad nią plus kilka rozszerzeń, m.in. pozwalających wysyłać instancje _@dataclass_ lub integrować się z Injectorem.
+
+"Wiadomość" albo raczej argument zadania będzie reprezentowany przez `smarttesting.verifier.customer.customer_verification.CustomerVerification`.
+
+=== Zaślepka [01]
+
+==== Klasy
+
+`Test01CustomerVerifierMockMessaging`
+
+=== W pamięci [02]
+
+==== Klasy
+
+`Test02CustomerVerifierInMemoryMessaging`
+
+=== W kontenerze [03]
+
+==== Klasy
+
+* `Test03CustomerVerifierWithContainer`
+** Gdzie stawiamy kontener z RabbitMQ i testujemy `CustomerVerifier` wraz z produkcyjnym wysyłaczem wiadomości
+** Nie testujemy jeszcze osobno wysyłacza, gdyż
+*** w poprzednich przykładach wychodziliśmy od tego jak moglibyśmy wyjść od serwisu aplikacyjnego - kontynuujemy ten proces
+*** wysyłacz ma banalny kod - przy złożeniu, że nie jest wykorzystywany nigdzie poza serwisem aplikacyjnym to możemy rozważyć testowanie ich razem
+** `Test03FraudAlertTask` - test nasłuchiwacza wiadomości

@@ -1,0 +1,13 @@
+= Testowanie na środowisku deweloperskim - kod produkcyjny
+
+== Kod
+
+Przede wszystkim `smart_testing_application.assemble`. Tam definiujemy różny układ konfiguracyjny w zależności od podanego środowiska.
+
+Konfiguracja ładowana jest ze zmiennych środowiskowych z wartościami domyślnymi, dość dobrymi na lokalne środowisko. Dodatkowo w środowisku developerskim zaślepmiay serwis weryfikacji PESELu, doczepiając dodatkowy moduł `dev_modules.DevModule`.
+
+== Żeby zbudować obraz ==
+
+```bash
+docker build -t smarttesting/integration-testing-app .
+```
