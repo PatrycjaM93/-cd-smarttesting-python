@@ -1,0 +1,19 @@
+---
+test_name: Sets order status to verified when correct customer
+
+marks:
+  - usefixtures:  # zobacz conftest.py dla źródeł
+      - fraud_service_url
+      - adult_male_customer_payload
+
+stages:
+  - name: Sending customer for verification
+    request:
+      url: "{fraud_service_url}"
+      method: POST
+      data: "{adult_male_customer_payload}"
+      headers:
+        content-type: application/json
+
+    response:
+      status_code: 200

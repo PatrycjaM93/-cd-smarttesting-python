@@ -1,0 +1,54 @@
+= 04.02 Testy E2E z poziomu GUI
+
+Tematy omawiane w tej części:
+
+* Częste problemy w testach E2E z poziomu GUI
+  - zobacz: `TestPetClinic`
+* Obsługa oczekiwania na załadowanie się strony
+  - zobacz: `PageObject._wait_for_page_readiness`
+* Zastosowanie wzorca PageObjectModel
+  - zobacz: `TestPetClinicPageObject`
+* Nakładki na Selenium
+  - zobacz `TestPetClinicSelene`
+
+**Setup do Testów**
+
+Testy Selenium w tym module są uruchamiane względem projektu [Pet Clinic](https://github.com/spring-projects/spring-petclinic).
+
+Projekt można uruchomić lokalnie korzystając z Dockera:
+
+```
+docker run --rm -e "SPRING_PROFILES_ACTIVE=prod" -p 8080:8080 arey/springboot-petclinic:1.4.1
+```
+
+Strona będzie dostępna z przeglądarki spod: http://localhost:8080/.
+
+Żeby testy z wykorzystaniem WebDriver'a działały, należy ściągnąć wersję 
+WebDriver'a odpowiednią dla przeglądarki i zapewnić, że bedzie dostępny w PATH.
+
+Więcej informacji: https://selenium-python.readthedocs.io/installation.html#drivers 
+
+Przykładowo dla Chrome'a:
+
+Wersję drivera odpowiednią dla wersji przeglądarki i systemu operacyjnego
+można ściągnąć z https://chromedriver.chromium.org/downloads.
+Rozpakowaną binarkę umieszczamy w katalogu, który jest wymieniony w zmiennej PATH, na Linuksie i MacOS to na przykład /usr/local/bin.
+Poprawne umiejscowienie można zweryfikować wywołując polecenie
+```
+chromedriver -v
+```
+Powinniśmy dostać informację o wersji.
+
+Alternatywnie, można też przekazać lokalizację `chromedriver` jako pierwszy argument do tworzenia instancji `chromedriver.Chrome`, na przykład:
+```
+from selenium import webdriver
+
+driver = webdriver.Chrome("/home/sebastian/chromedriver")
+```
+
+Uruchamianie testów:
+ 
+```
+cd 04-end-to-end-testing/04-02-gui-based-e2e/
+pytest
+```
