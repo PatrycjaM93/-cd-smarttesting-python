@@ -1,0 +1,51 @@
+= 04.01 Testy E2E z poziomu API
+
+Tematy omawiane w tej części:
+
+* Częste problemy w testach E2E po API
+  - zobacz: `TestHttpBasedCustomerVerification.test_sets_order_status_to_verified_when_correct_customer`
+* Obsługa eventual consistency
+  - zobacz: `TestHttpBasedCustomerVerification.test_sets_order_status_to_failed_when_incorrect_customer`
+* Poprawa czytelności i ujednolicenie warstw abstrakcji
+  - zobacz: `TestHttpBasedCustomerVerification.test_sets_order_status_to_failed_when_incorrect_customer`
+* Zastosowanie bibliotek do weryfikacji API
+  - zobacz `customer_verification.tavern.yaml`
+* Zastosowanie bibliotek do generowania danych testowych
+  - zobacz `conftest.py` i wykorzystanie fikstur w `customer_verification.tavern.yaml`
+
+**Uruchamianie aplikacji i testów**
+
+Moduł składa się z 3 podmodułów:
+* 2 "aplikacji biznesowych": 
+  - loan-orders - służy do składania wniosków o udzielenie pożyczki
+  - fraud-verifier - służy do weryfikacji klientów
+* e2e - modułu zawierającego testy E2E do uruchamienia względem już działającego systemu 
+
+**Uruchamianie aplikacji i testów**
+
+1. Uruchom MongoDB, np. przy użyciu dockera:
+
+```
+docker run --rm -p 27017:27017 mongo
+``` 
+
+2. Uruchom aplikację Fraud Verifier:
+
+```
+cd 04-end-to-end-testing/04-01-rest-based-e2e
+FLASK_APP=fraud_verifier:app flask run -p 9090
+```
+
+3. Uruchom aplikację Loan Orders:
+
+```
+cd 04-end-to-end-testing/04-01-rest-based-e2e
+FLASK_APP=loan_orders:app flask run -p 9091
+```
+
+4. Uruchom testy E2E:
+
+```
+cd 04-end-to-end-testing/04-01-rest-based-e2e
+pytest e2e/
+```
