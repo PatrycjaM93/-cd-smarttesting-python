@@ -1,0 +1,32 @@
+{
+  "id" : "0f0520ad-4766-4241-bc49-85812b966067",
+  "request" : {
+    "url" : "/fraudCheck",
+    "method" : "POST",
+    "headers" : {
+      "Content-Type" : {
+        "equalTo" : "application/json"
+      }
+    },
+    "bodyPatterns" : [ {
+      "matchesJsonPath" : "$[?(@.['uuid'] == '6cb4521f-49da-48e5-9ea2-4a1d3899581d')]"
+    }, {
+      "matchesJsonPath" : "$.['person'][?(@.['name'] == 'Jacek')]"
+    }, {
+      "matchesJsonPath" : "$.['person'][?(@.['surname'] == 'Dubilas')]"
+    }, {
+      "matchesJsonPath" : "$.['person'][?(@.['date_of_birth'] == '1980-03-08')]"
+    }, {
+      "matchesJsonPath" : "$.['person'][?(@.['gender'] == 'MALE')]"
+    }, {
+      "matchesJsonPath" : "$.['person'][?(@.['national_id_number'] == '80030818293')]"
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "transformers" : [ "response-template" ]
+  },
+  "uuid" : "0f0520ad-4766-4241-bc49-85812b966067",
+  "scenarioName" : "Scenario_contracts",
+  "requiredScenarioState" : "Step1"
+}

@@ -1,0 +1,8 @@
+[MASTER]
+load-plugins=pylint_forbidden_imports
+[MESSAGES CONTROL]
+disable=all
+enable=this-package-is-forbidden-to-be-imported-here
+[CONVENTIONS]
+allowed-modules-dependencies=smarttesting_api->smarttesting,  # api może importować smarttesting
+                             tests->*  # testy moga importować wszystko
