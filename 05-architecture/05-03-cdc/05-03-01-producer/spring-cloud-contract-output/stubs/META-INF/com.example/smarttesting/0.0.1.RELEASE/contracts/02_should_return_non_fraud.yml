@@ -1,0 +1,15 @@
+request:
+  method: POST
+  url: /fraudCheck
+  headers:
+    Content-Type: application/json
+  body:
+    uuid: 6cb4521f-49da-48e5-9ea2-4a1d3899581d
+    person:
+      name: Jacek
+      surname: Dubilas
+      date_of_birth: "1980-03-08"
+      gender: MALE
+      national_id_number: "80030818293"
+response:
+  status: 200

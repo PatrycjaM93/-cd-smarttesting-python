@@ -1,0 +1,13 @@
+[MASTER]
+load-plugins=pylint_forbidden_imports
+[MESSAGES CONTROL]
+disable=all
+enable=this-package-is-forbidden-to-be-imported-here
+[CONVENTIONS]
+allowed-modules-dependencies=smarttesting_api->smarttesting,
+                             smarttesting_api->smarttesting_main,
+                             smarttesting_main->*,
+                             smartesting_main->celery,
+                             smarttesting_main->sqlalchemy,
+                             smarttesting_api->sqlalchemy,
+                             tests->*  # testy moga importować wszystko

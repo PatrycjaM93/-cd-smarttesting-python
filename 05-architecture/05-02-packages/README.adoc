@@ -1,0 +1,30 @@
+= Testowanie architektury
+
+W Pythonie w ogóle nie istnieje koncept modyfikatorów dostępu tak do pojedynczych modułów jak i klas.
+Oznacza to, że nic nie stoi na przeszkodzie byśmy z dowolnego miejsca kodu importowali i używali klas i funkcji z dowolnego innego miejsca, także teoretycznie nieprzeznaczonych do bezpośredniego użycia i nieudokumentowanych części bibliotek 3rd party lub wbudowanych modułów.
+
+Pewną wskazówką dla użytkownika naszego modułu może byc umieszczenie zmiennej `\_\_all\_\_` w `\_\_init\_\_.py` najwyższego poziomu, jednak fizycznie nie powstrzymamy nikogo przed importowaniem rzeczy z bebechów.
+
+Stanowi to spore wyzwanie dla większych projektów w Pythonie.
+
+Aplikacja podzielona jest na dwa moduły, `smarttesting` i `smarttesting_api`. Pierwsza reprezentuje domenę biznesową naszej aplikacji a druga kod z podpiętym frameworkiem.
+
+W tej lekcji zobaczymy jak możemy uchronić się przed popsuciem naszej domeny
+i przed tym, że klasy z jednych pakietów są widoczne w innych.
+
+== Testy a architektura [01]
+
+=== Kod
+
+Tylko moduł `05-02-01-core` i klasa `tests.lesson1._01_bad_class_tests.Test01BadClass`
+
+
+== Testowanie pakietowania [02]
+
+=== Kod
+
+* `05-02-01-core`
+** `_02_threadlocals_tests.py`, `_03_architecture_tests.py`
+
+=== Inne
+https://import-linter.readthedocs.io/en/stable/[Import Linter]

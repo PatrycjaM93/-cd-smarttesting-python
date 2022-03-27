@@ -1,0 +1,45 @@
+= Testy chaosu
+
+== Kod
+
+Jedyny plik z testami - `chaos_test.py` - gdzie uruchamiamy eksperymenty inżynierii chaosu.
+
+== Uruchomienie
+
+Możemy od razu uruchomić testy bez podnoszenia całej aplikacji.
+
+Wstrzyknęliśmy opóźnienie i wyjątek używając monkey-patchingu.
+
+Oba testy się wywalą.
+
+* `test_returns_401_within_500_ms_when_calling_fraud_check_with_introduced_latency` - opóźnienie wynosi od 1 do 3 sekund więc po odczekaniu tego czasu zobaczymy błąd.
+* `test_returns_401_within_500ms_when_calling_fraud_check_with_db_issues` - dostaniemy `INTERNAL_SERVER_ERROR` i status `500`, ponieważ poleci nam wyjątek z kodu bazodanowego, którego nie obsługujemy.
+
+Następnie należy zakomentować kod w `CustomerVerifier` odpowiedzialny za połączenie z bazą danych i odkomentowanie tego, który dodaje obsługę błędów. Po uruchomieniu ponownym testów, jeden test przejdzie, a drugi, z oczywistych względów się wywali.
+
+```
+diff --git a/05-architecture/05-04-chaos/smarttesting/verifier/customer/customer_verifier.py b/05-architecture/05-04-chaos/smarttesting/verifier/customer/customer_verifier.py
+index fb5d218..0dd3f7b 100644
+--- a/05-architecture/05-04-chaos/smarttesting/verifier/customer/customer_verifier.py
++++ b/05-architecture/05-04-chaos/smarttesting/verifier/customer/customer_verifier.py
+@@ -39,7 +39,8 @@ class CustomerVerifier:
+         przypadku zapisuje wynik weryfikacji w bazie danych. Weryfikacja wówczas
+         zachodzi poprzez odpytanie BIKu o stan naszego klienta.
+         """
+-        prior_result = self._repository.find_by_user_id(customer.uuid)  # zakomentuj
++        # prior_result = self._repository.find_by_user_id(customer.uuid)    # zakomentuj
+-        # prior_result = None  # odkomentuj
++        prior_result = None  # odkomentuj
+         if prior_result:
+             return CustomerVerificationResult(
+                 prior_result.uuid, Status(prior_result.status)
+@@ -49,7 +50,7 @@ class CustomerVerifier:
+
+     def _verify_customer(self, customer: Customer) -> CustomerVerificationResult:
+         result = self._perform_checks(customer)
+-        self._save_verification_result(customer, result)  # zakomentuj
++        # self._save_verification_result(customer, result)  # zakomentuj
+         if not result.passed:
+             customer_verification = CustomerVerification(customer.person, result)
+             self._fraud_alert_task.delay(customer_verification=customer_verification)
+```

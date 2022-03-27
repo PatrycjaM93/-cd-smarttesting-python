@@ -1,0 +1,67 @@
+{
+  "consumer": {
+    "name": "some_consumer"
+  },
+  "provider": {
+    "name": "FraudVerify"
+  },
+  "interactions": [
+    {
+      "description": "An honest user sends their data",
+      "providerState": "Fraud verification rejects suspicious data",
+      "request": {
+        "method": "POST",
+        "path": "/fraudCheck",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "uuid": "89c878e3-38f7-4831-af6c-c3b4a0669022",
+          "person": {
+            "name": "Stefania",
+            "surname": "Stefanowska",
+            "gender": "FEMALE",
+            "date_of_birth": "2020-01-01",
+            "national_id_number": "1234567890"
+          }
+        }
+      },
+      "response": {
+        "status": 401,
+        "headers": {
+        }
+      }
+    },
+    {
+      "description": "A fraud user sends their data",
+      "providerState": "Fraud verification accepts trusted data",
+      "request": {
+        "method": "POST",
+        "path": "/fraudCheck",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "uuid": "6cb4521f-49da-48e5-9ea2-4a1d3899581d",
+          "person": {
+            "name": "Jacek",
+            "surname": "Dubilas",
+            "gender": "MALE",
+            "date_of_birth": "1980-03-08",
+            "national_id_number": "80030818293"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

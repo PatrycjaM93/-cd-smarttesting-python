@@ -1,0 +1,48 @@
+= Testowanie kontraktowe
+
+Moduł 05-03-01 to producent wiadomości, zaś 05-03-02 jego konsument.
+
+Zarówno konsument, jak i producent mogą być napisani w różnych językach i technologiach.
+
+Pokazujemy dwa różne narzędzia i dwa różne flow contract testingu.
+
+== a) z użyciem Spring Cloud Contracts
+
+Teraz użyjemy flow od strony producenta - do istniejącego napiszemy kontrakty, zweryfikujemy je i wygenerujemy stuby, by potem napisać klienta używając tych ostatnich.
+
+=== Po stronie producenta
+1. Piszemy kontrakt(y) (`05-architecture/05-03-cdc/05-03-01-producer/contract`)
+2. Uruchamiamy aplikację (patrz na samym dole)
+3. Uruchamiamy Spring Cloud Contracts w dockerze (`01_generate_stubs_with_scc.sh`)
+4. Cieszymy się z weryfikacji kontraktów i wygenerowanych stubów :) (`spring-cloud-contract-output/libs/smarttesting-0.0.1.RELEASE-stubs.jar`)
+
+UWAGA: W tym przykładzie nie wykorzystujemy żadnego repozytorium na stuby jak Artifactory. Więcej informacji w dokumentacji Spring Cloud Contracts: https://docs.spring.io/spring-cloud-contract/docs/current/reference/html/docker-project.html#docker-how-it-works
+
+=== Po stronie konsumenta
+
+1. Najpierw uruchamiamy stubrunnera, który stawia nam i konfiguruje Wiremocka dla sprawdzonych kontraktów (`02_run_stubrunner.sh`)
+2. Potem możemy tradycyjnie uruchomić testy `pytest 05-architecture/05-03-cdc/05-03-02-consumer`
+
+UWAGA: Ze względu na specyfikę Wiremocka po każdym przebiegu testów należy restartować stubrunnera.
+Inaczej będziemy dostawać 404 na jednym z requestów.
+
+== b) z użyciem Pact
+
+Teraz użyjemy flow od strony klienta - tak zwane Consumer-Driven Contract Testing (no prawie, bo usługa weryfikacji już istnieje 😀)
+
+=== Po stronie konsumenta
+
+1. Uruchamiamy testy `pytest 05-architecture/05-03-cdc/05-03-02-consumer/consumer/consumer_pact_tests.py`
+2. Testy wygenerowały nam plik .json `some_consumer_fraudverify.json` (jest już w repo)
+
+=== Po stronie producenta
+
+1. Uruchamiamy aplikację producenta (patrz niżej)
+A. Albo weryfikujemy serwer używajac wbudowanego narzędzia CLI `pact-verifier --provider-base-url="http://localhost:5000/" --pact-url=05-architecture/05-03-cdc/05-03-02-consumer/consumer/some_consumer-fraudverify.json`
+B. Albo piszemy test używajac Python API, np. opakowaując to w pytest https://github.com/pact-foundation/pact-python#python-api
+
+== Uruchamianie aplikacji:
+```bash
+cd 05-architecture/05-03-cdc/05-03-01-producer/
+APP_ENV=DEV FLASK_APP=smarttesting_api.web_app:app flask run
+```
