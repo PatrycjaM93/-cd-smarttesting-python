@@ -1,0 +1,56 @@
+= Automatyzacja Projektu i Metryki Jakości
+
+== Automatyzacja Projektu
+
+W lekcji 06-02 pokazujemy różne narzędzia do testowania skryptów (Bats) / budowania aplikacji (pybuilder / invoke). Wybraliśmy te narzędzia jako przykłady:
+
+* Testowania skryptów (Bats)
+* Procesu budowania opartego o konwencje (pybuilder)
+* Procesu budowania opartego na dowolności (invoke)
+
+== Metryki jakości
+
+Wszystkie prezentowane do tej pory przykłady kodu (także w poprzednich lekcjach) były sprawdzane od początku kilkoma narzędziami do statycznej analizy kodu, to jest:
+
+- `flake8` (sprawdź plik setup.cfg w głównym katalogu)
+- `pylint` (sprawdź .pylintrc w głównym katalogu)
+
+Przykładowy output dla flake8 (wyłapie np. nieużywane import czy zbyt dużą złożoność cyklomatyczną):
+
+```
+06-automation/06-03-sca/smarttesting/verifier/customer/bik_verification_service.py:29:5: C901 'BIKVerificationService.complex_method' is too complex (12)
+```
+
+Przykładowy output dla pylinta (wyłapał mnóstwo różnych celowo umieszczonych problemów z kodem w tym rozdziale):
+
+```
+************* Module smarttesting.module_c.class_c
+06-automation/06-03-sca/smarttesting/module_c/class_c.py:17:32: E0601: Using variable 'ClassA' before assignment (used-before-assignment)
+06-automation/06-03-sca/smarttesting/module_c/class_c.py:17:49: E0601: Using variable 'ClassB' before assignment (used-before-assignment)
+************* Module smarttesting.module_b.class_b
+06-automation/06-03-sca/smarttesting/module_b/class_b.py:17:32: E0601: Using variable 'ClassA' before assignment (used-before-assignment)
+************* Module smarttesting.verifier.customer.bik_verification_service
+06-automation/06-03-sca/smarttesting/verifier/customer/bik_verification_service.py:21:15: W0703: Catching too general exception Exception (broad-except)
+06-automation/06-03-sca/smarttesting/verifier/customer/bik_verification_service.py:29:4: C0103: Argument name "a" doesn't conform to snake_case naming style (invalid-name)
+06-automation/06-03-sca/smarttesting/verifier/customer/bik_verification_service.py:29:4: C0103: Argument name "b" doesn't conform to snake_case naming style (invalid-name)
+06-automation/06-03-sca/smarttesting/verifier/customer/bik_verification_service.py:29:4: C0103: Argument name "c" doesn't conform to snake_case naming style (invalid-name)
+06-automation/06-03-sca/smarttesting/verifier/customer/bik_verification_service.py:34:8: C0103: Variable name "d" doesn't conform to snake_case naming style (invalid-name)
+06-automation/06-03-sca/smarttesting/verifier/customer/bik_verification_service.py:35:8: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+06-automation/06-03-sca/smarttesting/verifier/customer/bik_verification_service.py:36:8: C0103: Variable name "f" doesn't conform to snake_case naming style (invalid-name)
+06-automation/06-03-sca/smarttesting/verifier/customer/bik_verification_service.py:29:4: R0911: Too many return statements (10/6) (too-many-return-statements)
+06-automation/06-03-sca/smarttesting/verifier/customer/bik_verification_service.py:29:4: R0912: Too many branches (13/12) (too-many-branches)
+************* Module smarttesting.module_a.my_popo
+06-automation/06-03-sca/smarttesting/module_a/my_popo.py:1:0: R0401: Cyclic import (smarttesting.module_a.class_a -> smarttesting.module_b.class_b) (cyclic-import)
+06-automation/06-03-sca/smarttesting/module_a/my_popo.py:1:0: R0401: Cyclic import (smarttesting.module_a.class_a -> smarttesting.module_b.class_b -> smarttesting.module_c.class_c) (cyclic-import)
+06-automation/06-03-sca/smarttesting/module_a/my_popo.py:1:0: R0401: Cyclic import (smarttesting.module_a.class_a -> smarttesting.module_c.class_c) (cyclic-import)
+06-automation/06-03-sca/smarttesting/module_a/my_popo.py:1:0: R0401: Cyclic import (smarttesting.module_b.class_b -> smarttesting.module_c.class_c) (cyclic-import)
+```
+
+Do weryfikacji adnotacji typów (jednak bez ich bezwzględnego wymuszania wszędzie):
+
+- `mypy` (używamy ustawień domyślnych z opcją --ignore-missing-imports)
+
+Dodatkowo projekt używa formaterów:
+
+- `isort` (sprawdź sekcję `[tool.isort]` w pliku pyproject.toml z głównego katalogu)
+- `black` z domyślną długością linii 88.

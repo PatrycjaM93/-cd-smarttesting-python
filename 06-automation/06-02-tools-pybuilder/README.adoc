@@ -1,0 +1,13 @@
+= Budowanie Narzędziem Opartym o Konwencje na Przykładzie Pybuildera
+
+Pliki setup.py i pyproject.toml zostały wygenerowane automatycznie z komendy `pyb --start-project`.
+
+W pliku build.py znajdziemy ustawienia build, używane wtyczki itd.
+
+Budowanie uruchmiamy poleceniem:
+```bash
+cd 06-automation/06-03-tools-pybuilder/
+pyb
+```
+
+Więcej informacji: https://pybuilder.io/

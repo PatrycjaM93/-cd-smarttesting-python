@@ -1,0 +1,17 @@
+= Testowanie Skryptów z Frameworkiem Bats [06-02]
+
+Narzędzia do testowania i analizy statycznej skryptów są opakowane w Makefile, który poza ich uruchamianiem posiada też polecenia do ich zaciągnięcia. Czyli mozna po prostu uruchomić komendy:
+```bash
+make test
+```
+by wszystko skonfigurować, a następnie testy Bats / Shellcheck / Editorconfig.
+
+== Kod
+
+W pliku `tools/build-helper.sh` mamy skrypty Bashowe pomagające przy buildzie. Skrypt potrafi np. dociągnąć różne aplikacje.
+
+W katalogu `src/main/bash` mamy skrypty Bashowe, które chcemy przetestować.
+
+W katalogu `src/test/bats` mamy skrypty Bats do testów skryptów bashowych.
+
+W katalogu `src/main/bash/zsdoc` mamy dokumentację w Asciidoctor skryptów Bashowych (przez projekt https://github.com/zdharma/zshelldoc)

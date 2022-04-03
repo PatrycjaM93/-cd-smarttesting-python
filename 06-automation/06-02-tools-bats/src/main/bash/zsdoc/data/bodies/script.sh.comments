@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Exit immediately if a simple command exits with a non-zero status
+# When errtrace is enabled, the ERR trap is also triggered when the error (a command returning a nonzero code) occurs inside a function or a subshell.
+# If set, the return value of a pipeline is the value of the last (rightmost) command to
+# exit with a non-zero status, or zero if all commands in the pipeline exit successfully.
+# By default, pipelines only return a failure if the last command errors.
+# When used in combination with set -e, pipefail will make a script exit if any command
+# in a pipeline errors.
+
+# synopsis {{{
+# Receives a request from an external system.
+# }}}
+
+# FUNCTION: request {{{
+# Will call an external URL to retrieve a user. # }}}
