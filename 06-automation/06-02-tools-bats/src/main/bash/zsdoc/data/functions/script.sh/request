@@ -1,0 +1,1 @@
+"${CURL_BIN}" "${URL}" || echo "Failed to retrieve the request"

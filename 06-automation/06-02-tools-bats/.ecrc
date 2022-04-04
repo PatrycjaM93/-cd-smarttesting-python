@@ -1,0 +1,18 @@
+{
+  "Verbose": true,
+  "Debug": false,
+  "IgnoreDefaults": false,
+  "SpacesAftertabs": false,
+  "NoColor": false,
+  "Exclude": ["src/test/docs_helper/.*", "src/main/bash/zsdoc/data/.*"],
+  "AllowedContentTypes": [],
+  "PassedFiles": ["src/", "dupa.yml"],
+  "Disable": {
+    "EndOfLine": false,
+    "Indentation": false,
+    "InsertFinalNewline": false,
+    "TrimTrailingWhitespace": false,
+    "IndentSize": false,
+    "MaxLineLength": false
+  }
+}

@@ -1,0 +1,7 @@
+= Budowanie Narzędziem Opartym na Dowolności na Przykładzie invoke
+
+W skrypcie `tasks.py` kodujemy nasze zadania, które możemy następnie dowolnie uruchamiać poleceniem `inv <nazwa taska>`.
+
+Na przykład: `inv qa` uruchomi zadanie, które zależne jest od dwóch innych - jedno uruchamia testy, a drugie lintera.
+
+Więcej informacji: http://docs.pyinvoke.org/en/stable/
