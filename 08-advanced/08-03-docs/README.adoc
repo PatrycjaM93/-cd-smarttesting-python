@@ -1,0 +1,16 @@
+= Automatyczna dokumentacja API i możliwość jego testowania [08-03]
+
+== Kod
+
+Użyty w przykładzie framework FastAPI posiada integrację Out-Of-The-box ze swaggerem, o ile używamy Pydantica do walidacji (polecane, pokazywane w tutorialu połączenie).
+
+Do przejrzenia `smarttesting.client.person.Person`, dziedziczące w tym przykładzie po `pydantic.BaseModel` oraz widok `smarttesting.client.fraud_view.fraud_check_view`.
+
+== Uruchamianie aplikacji
+
+```
+cd 08-advanced/08-03-docs/
+uvicorn smarttesting.client.app:app
+```
+
+Następnie otwieramy w przeglądarce adres `http://127.0.0.1:8000/docs` i cieszymy się automatycznie skonfigurowanym swaggerem :)
