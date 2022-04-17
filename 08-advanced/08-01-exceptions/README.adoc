@@ -1,0 +1,15 @@
+= Testowanie wyjątków [08-01]
+
+== Kod
+
+Przykład weryfikacji po imieniu `_01_name_verification.py`, który loguje na konsoli informacje o kliencie.
+
+W `_02_name_verification_tests.py` znajdują się testy weryfikujące na różne sposoby rzucany wyjątek. Zaczynamy od najbardziej generycznego testu, który łapie `AttributeError` - `test_should_throw_an_exception_when_checking_verification`. Test przechodzi przez przypadek. `AttributeError` leci, gdyż w fiksturze `_person_without_name` ktoś źle ustawił pole `gender`. `AttributeError` leci z wywołania `person.gender.name`, gdyż string podany zamiast Gender nie ma atrybutu name.
+
+Możemy weryfikować wiadomość przy rzconym wyjątku tak jak w przypadku testu `test_should_throw_an_exception_when_checking_verification_only`.
+
+Zakładając, że z jakiegoś powodu domenowego nasza klasa weryfikacyjna nie może obsłużyć błędnych sytuacji i musi rzucić wyjątek, to ten wyjątek powinien być wyjątkiem związanym z cyklem życia naszej aplikacji. Przypuśćmy, że tworzymy sobie wyjątek `_04_verification_exception.VerificationException`, który jako wyjątek domenowy (`_03_domain_exception.DomainException`) może zostać obsłużony gdzieś w innej części naszej aplikacji.
+
+Nasza klasa weryfikująca mogłaby wówczas wyglądać tak jak `_05_name_with_custom_exception_verification.NameWithCustomExceptionVerification`.
+
+Test wtedy mógłby dokonywać asercji na podstawie rzuconego wyjątku tak jak w `test_should_fail_verification_when_name_is_invalid` oraz `test_should_fail_verification_if_name_is_invalid_with_explicit_assertion`, jeśli w naszej bibliotece do testowania nie ma możliwości napisania odpowiedniej asercji.

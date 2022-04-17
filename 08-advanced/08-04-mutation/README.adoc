@@ -1,0 +1,77 @@
+= Testy mutacyjne [08-04]
+
+== Kod
+
+Najpierw `_01_age.AgeVerification` jako implementacja, którą będziemy testować.
+
+Potem klasa testowa `_02_age_verification_tests.Test02AgeVerification`, a w niej:
+
+- `test_should_throw_exception_when_age_invalid`
+- `test_should_return_positive_verification_when_age_is_within_the_threshold`
+- `test_should_return_positive_verification_when_age_is_below_the_threshold`
+- `should_return_positive_verification_when_age_is_above_the_threshold`
+
+Czyli weryfikujemy
+
+* wiek z przyszłości
+* wiek w ramach przedziału akceptowalnego
+* wiek poniżej przedziału
+* wiek powyżej przedziału
+
+Jak uruchomimy narzędzie do policzenia pokrycia kodu testami
+
+```
+cd 08-advanced/08-04-mutation
+pytest --cov=smarttesting tests/
+```
+
+to wyjdzie nam 100% pokrycia kodu w klasach weryfikujących. Pytanie jest czy wszystkie ścieżki zostały rzeczywiście pokryte? Zapomnieliśmy o warunkach brzegowych!
+
+Jeśli uruchomimy:
+
+```
+cd 08-advanced/08-04-mutation/
+mutmut run --paths-to-mutate smarttesting/verifier/customer/verification/_01_age.py
+```
+
+Zobaczymy, że z wygenerowanych 14 mutacji aż 9 nie zostało wykrytych naszymi testami!
+
+```
+- Mutation testing starting -
+
+...
+
+Legend for output:
+🎉 Killed mutants.   The goal is for everything to end up in this bucket.
+⏰ Timeout.          Test suite took 10 times as long as the baseline so were killed.
+🤔 Suspicious.       Tests took a long time, but not long enough to be fatal.
+🙁 Survived.         This means your tests needs to be expanded.
+🔇 Skipped.          Skipped.
+
+mutmut cache is out of date, clearing it...
+1. Running tests without mutations
+⠦ Running...Done
+
+2. Checking mutants
+⠴ 14/14  🎉 5  ⏰ 0  🤔 0  🙁 9  🔇 0
+```
+
+Dodatkowe informacje możemy uzyskać prosząc o raport:
+```
+mutmut results
+```
+
+```
+To apply a mutant on disk:
+    mutmut apply <id>
+
+To show a mutant:
+    mutmut show <id>
+
+
+Survived 🙁 (9)
+
+---- smarttesting/verifier/customer/verification/_01_age.py (9) ----
+
+5-11, 13-14
+```
