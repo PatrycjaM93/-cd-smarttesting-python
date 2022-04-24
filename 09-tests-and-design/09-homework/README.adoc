@@ -1,0 +1,6 @@
+== Znajdywanie testów do poprawienia w ramach pracy domowej
+
+Uruchom testy opatrzone markerem `homework`
+```bash
+ pytest 09-tests-and-design/09-homework/ -m homework
+```
